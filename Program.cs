@@ -4,150 +4,55 @@ using CsvHelper.Configuration.Attributes;
 using System.Globalization;
 using System.Text.Json;
 
-/*
-    * 0    TIMESTAMP	
-    * 1    PreciseTimeStamp	
-    * 2    Tenant	
-    * 3    Role	
-    * 4    DeployRing	
-    * 5    Forest	
-    * 6    DAG	
-    * 7    RoleInstance	
-    * 8    env_cloud_role	
-    * 9    env_cloud_roleInstance	
-    * 10   env_dt_spanId	
-    * 11   env_dt_traceId	
-    * 12   env_name	
-    * 13   env_time	
-    * 14   env_ver	
-    * 15   kind	
-    * 16   name	
-    * 17   parentId	
-    * 18   startTime	
-    * 19   success	
-    * 20   RowKey	
-    * 21   __AuthType__	
-    * 22   __AuthIdentity__	
-    * 23   __SourceEvent__	
-    * 24   __SourceMoniker__	
-    * 25   http.host	
-    * 26   httpMethod	
-    * 27   httpStatusCode	
-    * 28   httpUrl	
-    * 29   net.peer.name	
-    * 30   net.peer.port	
-    * 31   rpc.grpc.status_code	
-    * 32   rpc.method	
-    * 33   rpc.service	
-    * 34   rpc.system	
-    * 35   ApplicationName	
-    * 36   ApplicationVersion	
-    * 37   CafeHopCount
-    * 38   ClientRequestId	
-    * 39   Clique	
-    * 40   DatabaseAvailabilityGroup	
-    * 41   Datacenter	
-    * 42   FrontEndServerName	
-    * 43   IsFromCafe	
-    * 44   IsSynthetic	
-    * 45   IsTestServer	
-    * 46   Machine	
-    * 47   OperationName	
-    * 48   OsVersion	
-    * 49   Region	
-    * 50   RequestSizeBytes	
-    * 51   RoutingSessionKeyMatchesAnchorMailbox	
-    * 52   RuntimeFramework	RuntimeFrameworkDescription	
-    * 53   ServerRequestId	
-    * 54   UserAgent	
-    * 55   ResponseContentLength	
-    * 56   http.path	
-    * 57   http.route	
-    * 58   ResponseContentType	
-    * 59   ClientApplicationId	
-    * 60   ClientApplicationName	
-    * 61   ConsolidatedClientAppName	
-    * 62   IsConsumer	
-    * 63   MsAppName	
-    * 64   TenantId	
-    * 65   processorName	
-    * 66   processorType	
-    * 67   network.protocol.version	
-    * 68   SubScenario	
-    * 69   http.request.header.ms_cv	
-    * 70   http.request.header.scenariotag	
-    * 71   http.response.header.request_id	
-    * 72   http.response.header.x_beserver	
-    * 73   http.response.header.x_diaginfo	
-    * 74   clientRequestId	
-    * 75   env_mscv_cV	
-    * 76   requestId	
-    * 77   http.target	
-    * 78   http.user_agent	
-    * 79   net.peer.ip	
-    * 80   http.response.header.ms_cv	
-    * 81   http.response.header.x_feserver	
-    * 82   statusMessage	
-    * 83   http.flavor	
-    * 84   http.scheme	
-    * 85   env_cloud_roleVer	
-    * 86   cloud.deploymentUnit	
-    * 87   cloud.environment	
-    * 88   cloud.location	
-    * 89   cloud.name	
-    * 90   recipient.id	
-    * 91   tenant.domain	
-    * 92   tenant.id
-    */
 internal class RawSpan
 {
-    [Index(8)]
+    [Name("env_cloud_role")]
     public string ServiceName { get; set; }
-    [Index(10)]
+    [Name("env_dt_spanId")]
     public string SpanId { get; set; }
-    [Index(11)]
+    [Name("env_dt_traceId")]
     public string TraceId { get; set; }
-    [Index(18)]
+    [Name("startTime")]
     public string StartTimeUtc { get; set; }
-    [Index(13)]
+    [Name("env_time")]
     public string EndTimeUtc { get; set; }
-    [Index(15)]
+    [Name("kind")]
     public string Kind { get; set; }
-    [Index(16)]
+    [Name("name")]
     public string DisplayName { get; set; }
-    [Index(16)]
+    [Name("name")]
     public string OperationName { get; set; }
-    [Index(17)]
+    [Name("parentId")]
     public string ParentId { get; set; }
-    [Index(19)]
+    [Name("success")]
     public string Success { get; set; }
-    [Index(12)]
+    [Name("env_name")]
     public string Source { get; set; }
-    [Index(25)]
+    [Name("http.host")]
     public string HttpHost { get; set; }
-    [Index(26)]
+    [Name("httpMethod")]
     public string HttpMethod { get; set; }
-    [Index(27)]
+    [Name("httpStatusCode")]
     public string HttpStatusCode { get; set; }
-    [Index(28)]
+    [Name("httpUrl")]
     public string HttpUrl { get; set; }
-    [Index(69)]
+    [Name("http.request.header.ms_cv")]
     public string HttpRequestHeaderMsCv { get; set; }
-    [Index(70)]
+    [Name("http.request.header.scenariotag")]
     public string HttpRequestHeaderScenariotag { get; set; }
-    [Index(71)]
+    [Name("http.response.header.request_id")]
     public string HttpResponseHeaderRequestId { get; set; }
-    [Index(72)]
+    [Name("http.response.header.x_beserver")]
     public string HttpResponseHeaderXBeserver { get; set; }
-    [Index(73)]
+    [Name("http.response.header.x_diaginfo")]
     public string HttpResponseHeaderXDiaginfo { get; set; }
-    [Index(77)]
+    [Name("http.target")]
     public string HttpTarget { get; set; }
-    [Index(78)]
+    [Name("http.user_agent")]
     public string HttpUserAgent { get; set; }
-    [Index(83)]
+    [Name("http.flavor")]
     public string HttpFlavor { get; set; }
-    [Index(84)]
+    [Name("http.scheme")]
     public string HttpScheme { get; set; }
     public RawSpan() { }
 }
@@ -212,7 +117,7 @@ internal class Span
         DisplayName = rawSpan.DisplayName;
         OperationName = rawSpan.OperationName;
         ParentId = rawSpan.ParentId;
-        Status = rawSpan.Success == "TRUE" ? "success" : "fail";
+        Status = bool.Parse(rawSpan.Success) ? "success" : "fail";
         Source = rawSpan.Source;
         Events = "";
         Links = "";
